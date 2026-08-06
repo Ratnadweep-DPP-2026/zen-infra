@@ -51,6 +51,9 @@ concurrency:
 jobs:
   # ── Plan ──────────────────────────────────────────────────────────────────
   plan:
+    if: |
+      github.event_name != 'workflow_dispatch' ||
+      github.event.inputs.action != 'destroy'
     name: Terraform Plan (${{ github.event.inputs.environment || 'dev' }})
     runs-on: ubuntu-latest
     defaults:
